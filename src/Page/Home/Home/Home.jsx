@@ -4,6 +4,9 @@ import HowItWorks from '../HowItWorks/HowItWorks';
 import ServicesCard from '../ServicesCard/ServicesCard';
 import ClientLogoMarque from '../ClientLogoMarque/ClientLogoMarque';
 import Benifits from '../Benifits/Benifits';
+import BeMarchant from '../BeMarchent/BeMarchant';
+import TestimonialCarousel from '../TestimonialCarousel/TestimonialCarousel';
+import FaqAccordion from '../FaqAccordion/FaqAccordion';
 
 const Home = () => {
     return (
@@ -13,6 +16,9 @@ const Home = () => {
             <ServicesCard></ServicesCard>
             <ClientLogoMarque></ClientLogoMarque>
             <Benifits></Benifits>
+            <BeMarchant></BeMarchant>
+            <TestimonialCarousel></TestimonialCarousel>
+            <FaqAccordion></FaqAccordion>
         </div>
     );
 };
