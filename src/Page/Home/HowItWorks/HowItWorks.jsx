@@ -28,7 +28,7 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition"
+              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition" data-aos="flip-right"
             >
               <div className="flex justify-center items-center w-12 h-12 mb-4 rounded-full bg-gray-100 text-teal-600">
                 <FaMapMarkerAlt size={24} />
