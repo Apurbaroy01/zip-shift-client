@@ -1,12 +1,25 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../../Hook/useAuth';
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
+    const { signIn } = useAuth();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
         console.log(data);
+
+        signIn(data.email, data.password)
+            .then((result) => {
+                console.log(result.user)
+                navigate('/')
+
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
     };
 
     return (
@@ -16,7 +29,7 @@ const Login = () => {
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
                     Welcome Back 👋
                 </h2>
-                 
+
 
                 {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 text-left">
@@ -71,8 +84,8 @@ const Login = () => {
 
                 {/* Signup link */}
                 <p className="text-center mt-6 text-sm text-gray-600 flex">
-                    Don’t have an account?{" "}
-                    <p className="text-blue-600 font-semibold hover:underline"><Link to="/register">Sign Up</Link></p>
+                    Don’t have an account?
+                    <Link to="/register" className="text-blue-600 font-semibold hover:underline">Sign Up</Link>
                 </p>
             </div>
         </div>

@@ -1,12 +1,21 @@
-import React from 'react';
+
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../../Hook/useAuth';
 
 const Register = () => {
     const { register, handleSubmit } = useForm();
-
+    const { createUser } = useAuth();
     const onSubmit = (data) => {
         console.log(data);
+
+        createUser(data.email, data.password)
+            .then((result) => {
+                console.log(result)
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
     };
 
     return (
@@ -68,7 +77,7 @@ const Register = () => {
                 {/* Signup link */}
                 <p className="text-center mt-6 text-sm text-gray-600 flex">
                     I have already an account?{" "}
-                    <p className="text-blue-600 font-semibold hover:underline"><Link to="/login">Login</Link></p>
+                    <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
 
                 </p>
             </div>

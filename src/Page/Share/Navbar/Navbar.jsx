@@ -1,12 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ProfastLogo from '../ProfastLogo/ProfastLogo';
+import useAuth from '../../../Hook/useAuth';
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+
+    const handleLogOut=()=>{
+
+        logOut()
+        .then(()=>{
+            console.log("signOut SuccessFully")
+        })
+        .catch((error)=>{
+            console.log(error.message)
+        })
+
+        
+    }
+
     const Navitem = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
-        
+
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -29,7 +45,14 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user ? <>
+                        <button onClick={handleLogOut} className='btn'>LogOut</button>
+                    </>:
+                    <>
+                        <Link to="/login"><button  className='btn'>LogIn</button></Link>
+                    </>
+                }
             </div>
         </div>
     );
