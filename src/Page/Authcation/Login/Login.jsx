@@ -5,7 +5,7 @@ import useAuth from '../../../Hook/useAuth';
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
-    const { signIn } = useAuth();
+    const { signIn, signWithGoogle } = useAuth();
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
@@ -21,6 +21,19 @@ const Login = () => {
                 console.log(error.message)
             })
     };
+
+    const handleGoogleLogin = () => {
+        signWithGoogle()
+            .then((result) => {
+                console.log(result.user)
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+
 
     return (
         <div className="min-h-screen flex items-center justify-center ">
@@ -73,7 +86,7 @@ const Login = () => {
                 <div className="divider">OR</div>
 
                 {/* Social Login */}
-                <button className="btn btn-outline w-full rounded-xl flex items-center gap-2">
+                <button onClick={handleGoogleLogin} className="btn btn-outline w-full rounded-xl flex items-center gap-2">
                     <img
                         src="https://www.svgrepo.com/show/475656/google-color.svg"
                         alt="Google"
