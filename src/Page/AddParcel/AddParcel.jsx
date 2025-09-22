@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddParcel = () => {
   const { register, handleSubmit, watch, setValue } = useForm();
+  const [price, setPrice] = useState(0);
 
   const parcelType = watch("parcelType");
   const senderRegion = watch("senderRegion");
   const receiverRegion = watch("receiverRegion");
+  const parcelWeight = watch("parcelWeight");
 
   const regionDistricts = {
     Dhaka: ["Gazipur", "Narayanganj", "Tangail"],
@@ -14,14 +16,43 @@ const AddParcel = () => {
     Sylhet: ["Moulvibazar", "Habiganj", "Sunamganj"],
   };
 
+  // Reset weight if document
   useEffect(() => {
     if (parcelType === "document") {
       setValue("parcelWeight", "");
     }
   }, [parcelType, setValue]);
 
+  // Price Calculation Logic
+  useEffect(() => {
+    let calculatedPrice = 0;
+
+    // Determine if inside same region or not
+    const withinCity = senderRegion && receiverRegion && senderRegion === receiverRegion;
+
+    if (parcelType === "document") {
+      calculatedPrice = withinCity ? 60 : 80;
+    } else if (parcelType === "not-document") {
+      const weight = Number(parcelWeight) || 0;
+
+      if (weight <= 3) {
+        calculatedPrice = withinCity ? 110 : 150;
+      } else {
+        // Base price + extra
+        const extraKg = weight - 3;
+        if (withinCity) {
+          calculatedPrice = 110 + extraKg * 40;
+        } else {
+          calculatedPrice = 150 + extraKg * 40 + 40; // extra +40 for outside city
+        }
+      }
+    }
+
+    setPrice(calculatedPrice);
+  }, [parcelType, parcelWeight, senderRegion, receiverRegion]);
+
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
+    console.log("Form Data:", { ...data, price });
   };
 
   return (
@@ -57,7 +88,7 @@ const AddParcel = () => {
           />
         </div>
 
-        {/* Sender & Receiver Flex/Grid */}
+        {/* Sender & Receiver */}
         <div className="grid md:grid-cols-2 gap-8">
           {/* Sender */}
           <div>
@@ -116,6 +147,12 @@ const AddParcel = () => {
               ))}
             </select>
           </div>
+        </div>
+
+        {/* Price Section */}
+        <div className="p-4 border rounded bg-gray-50">
+          <h3 className="font-semibold text-lg mb-2">Delivery Charge</h3>
+          <p className="text-xl font-bold text-green-600">৳ {price || 0}</p>
         </div>
 
         {/* Submit Button */}
