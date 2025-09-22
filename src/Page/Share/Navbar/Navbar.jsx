@@ -22,6 +22,7 @@ const Navbar = () => {
     const Navitem = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/covarage">Covarage</NavLink></li>
+        <li><NavLink to="/sendParcel">Add Parcel</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
 
     </>

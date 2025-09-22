@@ -8,6 +8,8 @@ import Login from "../Page/Authcation/Login/Login";
 import Register from "../Page/Authcation/Login/Register/Register";
 import Covarage from "../Page/Covarage/Covarage";
 
+import AddParcel from "../Page/AddParcel/AddParcel";
+
 
 
 
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
       {
         path:"covarage",
         Component: Covarage,
+      },
+      {
+        path:"sendParcel",
+        element:<AddParcel></AddParcel>
       },
     ]
   },
