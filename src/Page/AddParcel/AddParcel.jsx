@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Hook/useAuth";
+
 
 const AddParcel = () => {
+  const { user } = useAuth();
   const { register, handleSubmit, watch, setValue } = useForm();
   const [price, setPrice] = useState(0);
 
@@ -51,8 +54,27 @@ const AddParcel = () => {
     setPrice(calculatedPrice);
   }, [parcelType, parcelWeight, senderRegion, receiverRegion]);
 
+
+  const generateTrackingId = () => {
+    const now = Date.now(); // সময় মিলিসেকেন্ডে
+    const random = Math.floor(Math.random() * 1000); // 0-999 র‍্যান্ডম সংখ্যা
+    return `TRK-${now}-${random}`;
+  };
+
+
   const onSubmit = (data) => {
-    console.log("Form Data:", { ...data, price });
+
+    const parcelData = {
+      email: user.email,
+      price,
+      creation_Date: new Date().toISOString(),
+      paymrnt_status: "unpaid",
+      delevery_status: "not_collected",
+      trackigId: generateTrackingId(),
+      ...data,
+
+    }
+    console.log("Form Data:", parcelData);
   };
 
   return (
