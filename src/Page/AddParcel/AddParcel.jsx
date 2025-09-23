@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hook/useAuth";
+import useAxiosSecoure from "../../Hook/useAxiosSecoure";
+import Swal from "sweetalert2";
 
 
 const AddParcel = () => {
   const { user } = useAuth();
   const { register, handleSubmit, watch, setValue } = useForm();
   const [price, setPrice] = useState(0);
+
+  const axiosSecure = useAxiosSecoure();
+
 
   const parcelType = watch("parcelType");
   const senderRegion = watch("senderRegion");
@@ -75,6 +80,36 @@ const AddParcel = () => {
 
     }
     console.log("Form Data:", parcelData);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, submit it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        axiosSecure.post("/parcels", parcelData)
+
+          .then(res => {
+            console.log(res.data)
+            Swal.fire({
+              title: "success",
+              text: "Your parcel has been success.",
+              icon: "success"
+            });
+
+          })
+          .catch((error) => {
+            console.log(error.message)
+          })
+
+
+      }
+    });
+
   };
 
   return (
