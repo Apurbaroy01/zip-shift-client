@@ -9,6 +9,8 @@ import Register from "../Page/Authcation/Login/Register/Register";
 import Covarage from "../Page/Covarage/Covarage";
 
 import AddParcel from "../Page/AddParcel/AddParcel";
+import DashboardLayout from "../Layout/DashboardLayout";
+import PrivetRoutes from "../Routes/PrivetRoutes";
 
 
 
@@ -46,6 +48,17 @@ const router = createBrowserRouter([
       },
     ]
   },
+
+  {
+    path:"/dashboard",
+    element:<PrivetRoutes><DashboardLayout></DashboardLayout></PrivetRoutes>,
+    children:[
+      {
+        
+        
+      }
+    ]
+  }
 ]);
 
 export default router
