@@ -11,6 +11,8 @@ import Covarage from "../Page/Covarage/Covarage";
 import AddParcel from "../Page/AddParcel/AddParcel";
 import DashboardLayout from "../Layout/DashboardLayout";
 import PrivetRoutes from "../Routes/PrivetRoutes";
+import MyParcel from "../Page/DashBoard/MyParcel/MyParcel";
+
 
 
 
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path:"sendParcel",
-        element:<AddParcel></AddParcel>
+        element:<AddParcel></AddParcel>,
       },
     ]
   },
@@ -40,11 +42,11 @@ const router = createBrowserRouter([
     children: [
       {
         path:'/login',
-        Component: Login
+        Component: Login,
       },
       {
         path:'/register',
-        Component: Register
+        Component: Register,
       },
     ]
   },
@@ -54,11 +56,12 @@ const router = createBrowserRouter([
     element:<PrivetRoutes><DashboardLayout></DashboardLayout></PrivetRoutes>,
     children:[
       {
+        path:"myParcel",
+        Component: MyParcel,
         
-        
-      }
+      },
     ]
-  }
+  },
 ]);
 
-export default router
+export default router;
