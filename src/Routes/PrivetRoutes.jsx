@@ -18,7 +18,7 @@ const PrivetRoutes = ({ children }) => {
 
     return (
         <div>
-            <Navigate to="/login"></Navigate>
+            {/* <Navigate to="/login"></Navigate> */}
         </div>
     );
 };
