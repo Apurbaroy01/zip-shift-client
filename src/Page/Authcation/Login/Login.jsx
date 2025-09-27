@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hook/useAuth';
 
 const Login = () => {
@@ -8,13 +8,17 @@ const Login = () => {
     const { signIn, signWithGoogle } = useAuth();
     const navigate = useNavigate();
 
+    const location = useLocation();
+    console.log(location)
+    const from = location.state?.from || "/"
+
     const onSubmit = (data) => {
         console.log(data);
 
         signIn(data.email, data.password)
             .then((result) => {
                 console.log(result.user)
-                navigate('/')
+                navigate(from)
 
             })
             .catch((error) => {

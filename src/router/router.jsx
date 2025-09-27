@@ -12,6 +12,7 @@ import AddParcel from "../Page/AddParcel/AddParcel";
 import DashboardLayout from "../Layout/DashboardLayout";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 import MyParcel from "../Page/DashBoard/MyParcel/MyParcel";
+import Payment from "../Page/DashBoard/Payment/Payment";
 
 
 
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path:"sendParcel",
-        element:<AddParcel></AddParcel>,
+        element: <PrivetRoutes><AddParcel></AddParcel></PrivetRoutes>
       },
     ]
   },
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
       {
         path:"myParcel",
         Component: MyParcel,
+        
+      },
+      {
+        path:"payment/:id",
+        Component: Payment,
         
       },
     ]

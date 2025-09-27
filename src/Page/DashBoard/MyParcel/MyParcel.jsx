@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../Hook/useAuth';
 import useAxiosSecoure from '../../../Hook/useAxiosSecoure';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const MyParcel = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecoure();
+    const navigate= useNavigate();
 
     const { data: parcels, isLoading, isError, refetch } = useQuery({
         queryKey: ["myparcel", user?.email],
@@ -59,6 +61,12 @@ const MyParcel = () => {
             });
     };
 
+    const handlePay=(id)=>{
+        console.log("handle pay",id)
+        navigate(`/dashboard/payment/${id}`)
+        
+    }
+
 
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Something went wrong!</p>;
@@ -107,7 +115,7 @@ const MyParcel = () => {
                                         Edit
                                     </button>
                                     {parcel.paymrnt_status === "unpaid" && (
-                                        <button className="px-3 py-1 bg-green-500 text-white rounded">
+                                        <button onClick={()=>handlePay(parcel._id)} className="px-3 py-1 bg-green-500 text-white rounded">
                                             Pay Now
                                         </button>
                                     )}

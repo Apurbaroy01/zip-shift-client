@@ -1,14 +1,20 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 
 
 
 const PrivetRoutes = ({ children }) => {
     const { user, loading } = useAuth();
+    const location = useLocation();
+    console.log(location);
 
     if (loading) {
-        <p>loading........</p>
-    };
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-xl font-semibold">Loading....</p>
+            </div>
+        );
+    }
 
 
     if (user) {
@@ -18,7 +24,7 @@ const PrivetRoutes = ({ children }) => {
 
     return (
         <div>
-            {/* <Navigate to="/login"></Navigate> */}
+            <Navigate state={{ from: location.pathname }} to="/login"></Navigate>
         </div>
     );
 };
