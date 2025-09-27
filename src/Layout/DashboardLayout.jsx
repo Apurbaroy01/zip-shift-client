@@ -1,7 +1,14 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import ProfastLogo from '../Page/Share/ProfastLogo/ProfastLogo';
+import { FaHome, FaBox } from 'react-icons/fa';
 
 const DashboardLayout = () => {
+
+    const linkClasses = ({ isActive }) =>
+        `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-200
+         ${isActive ? 'bg-blue-100 font-semibold text-blue-700' : 'hover:bg-gray-200'}`;
+
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -34,15 +41,23 @@ const DashboardLayout = () => {
                         {/* Page content here */}
                         <Outlet></Outlet>
                     </div>
-                    
+
                 </div>
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
-                    <li><a>Sidebar Item s1</a></li>
-                    <li><a>Sidebar Item s2</a></li>
+                    <ProfastLogo></ProfastLogo>
+                    <div className="flex flex-col mt-6 space-y-2">
+                        <NavLink to="/" className={linkClasses}>
+                            <FaHome /> Home
+                        </NavLink>
+                        <NavLink to="/dashboard/myParcel" className={linkClasses}>
+                            <FaBox /> My Parcels
+                        </NavLink>
+                    </div>
+
                 </ul>
             </div>
         </div>
