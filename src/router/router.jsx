@@ -13,6 +13,8 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 import MyParcel from "../Page/DashBoard/MyParcel/MyParcel";
 import Payment from "../Page/DashBoard/Payment/Payment";
+import PaymentHistory from "../Page/DashBoard/Payment/PaymentHistory";
+import TrackParcel from "../Page/DashBoard/TrackParcel/TrackParcel";
 
 
 
@@ -64,6 +66,16 @@ const router = createBrowserRouter([
       {
         path:"payment/:parcelId",
         Component: Payment,
+        
+      },
+      {
+        path:"paymentHistory",
+        Component: PaymentHistory
+        
+      },
+      {
+        path:"tracking",
+        Component: TrackParcel,
         
       },
     ]

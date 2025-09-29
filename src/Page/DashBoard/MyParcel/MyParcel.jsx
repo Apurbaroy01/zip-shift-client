@@ -99,12 +99,12 @@ const MyParcel = () => {
                                 <td>{parcel.price}৳</td>
                                 <td
                                     className={
-                                        parcel.paymrnt_status === "unpaid"
+                                        parcel.payment_status === "unpaid"
                                             ? "text-red-500 font-semibold"
                                             : "text-green-600 font-semibold"
                                     }
                                 >
-                                    {parcel.paymrnt_status}
+                                    {parcel.payment_status}
                                 </td>
                                 <td className='text-xs'>{parcel.delevery_status}</td>
                                 <td>
@@ -112,9 +112,9 @@ const MyParcel = () => {
                                 </td>
                                 <td className="space-x-2 text-sm">
                                     <button className="px-3 py-1 bg-blue-500 text-white rounded">
-                                        Edit
+                                        view
                                     </button>
-                                    {parcel.paymrnt_status === "unpaid" && (
+                                    {parcel.payment_status === "unpaid" && (
                                         <button onClick={()=>handlePay(parcel._id)} className="px-3 py-1 bg-green-500 text-white rounded">
                                             Pay Now
                                         </button>

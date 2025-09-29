@@ -73,7 +73,7 @@ const AddParcel = () => {
       email: user.email,
       price,
       creation_Date: new Date().toISOString(),
-      paymrnt_status: "unpaid",
+      payment_status: "unpaid",
       delevery_status: "not_collected",
       trackigId: generateTrackingId(),
       ...data,

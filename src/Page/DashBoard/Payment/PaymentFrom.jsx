@@ -1,16 +1,20 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecoure from '../../../Hook/useAxiosSecoure';
+import useAuth from '../../../Hook/useAuth';
+import Swal from 'sweetalert2';
 
 const PaymentFrom = () => {
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecoure();
     const [error, setError] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const { parcelId } = useParams();
     console.log(parcelId);
+    const navigate = useNavigate();
 
     const { data: parcelInfo = {}, isPending } = useQuery({
         queryKey: ['parcels', parcelId],
@@ -69,22 +73,43 @@ const PaymentFrom = () => {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: "Apurba roy",
+                    name: user.displayName,
+                    email: user.email,
                 },
             }
         })
 
-        if(result.error){
-            console.log(result.error.message)
+        if (result.error) {
+            setError(result.error.message)
         }
-        else{
-            if(result.paymentIntent.status ==="succeeded"){
+        else {
+            if (result.paymentIntent.status === "succeeded") {
                 console.log("payment succesFull")
+                setError("payment succesFull")
                 console.log(result)
+
+                const paymentDocument = {
+                    parcelId,
+                    email: user.email,
+                    amount: amountInCents,
+                    status: result.paymentIntent.status,
+                    transactionId: result.paymentIntent.id,
+                    paymentMathod: result.paymentIntent.payment_method_types,
+                }
+
+                axiosSecure.post('payment', paymentDocument)
+                    .then(res => {
+                        console.log(res.data)
+                        Swal.fire({
+                            title: "SuccessFully!",
+                            text: `paid $ ${amount}`,
+                            icon: "success"
+                        });
+                        navigate("/dashboard/myParcel")
+                    })
             }
         }
         console.log("res from intant", res)
-
 
     };
 
@@ -109,6 +134,7 @@ const PaymentFrom = () => {
                 <button className='btn btn-primary w-full mt-5' type='submit' disabled={!stripe}>
                     Pay ${amount}
                 </button>
+
             </form>
             {
                 error && <p className='text-2xl text-red-600'>{error}</p>

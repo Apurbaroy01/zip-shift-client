@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Page/Share/ProfastLogo/ProfastLogo';
-import { FaHome, FaBox } from 'react-icons/fa';
+import {FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit} from "react-icons/fa";
 
 const DashboardLayout = () => {
 
@@ -49,14 +49,30 @@ const DashboardLayout = () => {
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
                     <ProfastLogo></ProfastLogo>
+                    
+
                     <div className="flex flex-col mt-6 space-y-2">
                         <NavLink to="/" className={linkClasses}>
                             <FaHome /> Home
                         </NavLink>
+
                         <NavLink to="/dashboard/myParcel" className={linkClasses}>
                             <FaBox /> My Parcels
                         </NavLink>
+
+                        <NavLink to="/dashboard/paymentHistory" className={linkClasses}>
+                            <FaMoneyBillWave /> Payment History
+                        </NavLink>
+
+                        <NavLink to="/dashboard/tracking" className={linkClasses}>
+                            <FaTruck /> Track a Package
+                        </NavLink>
+
+                        <NavLink to="/dashboard/profile" className={linkClasses}>
+                            <FaUserEdit /> Update Profile
+                        </NavLink>
                     </div>
+
 
                 </ul>
             </div>
