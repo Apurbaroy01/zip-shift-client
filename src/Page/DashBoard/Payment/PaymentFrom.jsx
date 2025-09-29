@@ -25,7 +25,9 @@ const PaymentFrom = () => {
     }
 
     const amount = parcelInfo.price;
-    
+    const amountInCents = amount * 100;
+    console.log(amountInCents)
+
 
 
     const handleSubmit = async (e) => {
@@ -54,6 +56,36 @@ const PaymentFrom = () => {
             setError("")
             console.log('PaymentMethod', paymentMethod);
         }
+
+        const res = await axiosSecure.post('/cteate_payment_intant', {
+            amountInCents,
+            parcelId
+        })
+
+        const clientSecret = res.data.clientSecret;
+
+
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: "Apurba roy",
+                },
+            }
+        })
+
+        if(result.error){
+            console.log(result.error.message)
+        }
+        else{
+            if(result.paymentIntent.status ==="succeeded"){
+                console.log("payment succesFull")
+                console.log(result)
+            }
+        }
+        console.log("res from intant", res)
+
+
     };
 
     return (
