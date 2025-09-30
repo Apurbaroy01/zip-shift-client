@@ -15,6 +15,7 @@ import MyParcel from "../Page/DashBoard/MyParcel/MyParcel";
 import Payment from "../Page/DashBoard/Payment/Payment";
 import PaymentHistory from "../Page/DashBoard/Payment/PaymentHistory";
 import TrackParcel from "../Page/DashBoard/TrackParcel/TrackParcel";
+import Profile from "../Page/DashBoard/Profile/Profile";
 
 
 
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
       {
         path:"tracking",
         Component: TrackParcel,
+        
+      },
+      {
+        path:"profile",
+        Component: Profile,
         
       },
     ]
