@@ -3,16 +3,17 @@ import { FaUser, FaLock, FaEnvelope, FaCamera } from "react-icons/fa";
 import logo from "../../../assets/icon.png"
 
 const Profile = () => {
-    const [photo, setPhoto] = useState(null);
     const [preview, setPreview] = useState(null);
-    
+
 
     // handle photo upload
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
-        setPhoto(file);
         console.log(file)
         setPreview(URL.createObjectURL(file));
+
+        const formData = new FormData();
+        formData.append("image",file)
     };
 
 
@@ -46,13 +47,13 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    
-                        
 
-                        
 
-                        
-                    
+
+
+
+
+
                 </div>
             </div>
         </div>
