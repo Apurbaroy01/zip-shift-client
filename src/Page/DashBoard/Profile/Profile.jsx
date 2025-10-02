@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { FaUser, FaLock, FaEnvelope, FaCamera } from "react-icons/fa";
 import logo from "../../../assets/icon.png"
 import axios from "axios";
+import useAuth from "../../../Hook/useAuth";
+import { toast } from "react-toastify";
+
 
 const Profile = () => {
+    const { updatauser, user } = useAuth();
     const [preview, setPreview] = useState(null);
 
 
@@ -16,8 +20,21 @@ const Profile = () => {
         const formData = new FormData();
         formData.append("image", file)
 
-        const res = await axios.post(`https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_image_api}`,formData)
-        console.log(res.data)
+        const res = await axios.post(`https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_image_api}`, formData)
+        const setProfile =(res.data?.data?.display_url);
+        
+
+        const updateFrofile = {
+            displayName: user?.displayName,
+            photoURL: setProfile,
+        }
+
+        updatauser(updateFrofile)
+            .then(() => {
+                console.log("Profile updated!")
+                toast("Profile updated!")
+                
+            });
     };
 
 
@@ -31,7 +48,7 @@ const Profile = () => {
                     <div className="flex flex-col items-center">
                         <div className="relative">
                             <img
-                                src={preview || logo}
+                                src={user.photoURL || logo}
                                 alt="Profile"
                                 className="w-28 h-28 rounded-full object-cover border-4 border-primary"
                             />

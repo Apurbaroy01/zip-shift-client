@@ -58,27 +58,25 @@ const Navbar = () => {
                     user ? <>
 
                         <div className="flex gap-2">
-                            
+
                             <div className="dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
-                                        <img
-
-                                            src={icon }/>
+                                        <img src={user.photoURL || icon} />
                                     </div>
                                 </div>
                                 <ul
                                     tabIndex={0}
                                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                    
+
                                     <li><Link to="/dashboard/profile">Profile</Link></li>
                                     <li><Link to="/dashboard/profile">Setting</Link></li>
-                                    <li><button onClick={handleLogOut}  className='btn font-bold'><LuLogOut /> Logout</button></li>
+                                    <li><button onClick={handleLogOut} className='btn font-bold'><LuLogOut /> Logout</button></li>
                                 </ul>
                             </div>
                         </div>
 
-                        
+
                     </> :
                         <>
                             <Link to="/login"><button className='btn'>LogIn</button></Link>
