@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { FaUser, FaLock, FaEnvelope, FaCamera } from "react-icons/fa";
 import logo from "../../../assets/icon.png"
+import axios from "axios";
 
 const Profile = () => {
     const [preview, setPreview] = useState(null);
 
 
     // handle photo upload
-    const handlePhotoChange = (e) => {
+    const handlePhotoChange = async (e) => {
         const file = e.target.files[0];
         console.log(file)
         setPreview(URL.createObjectURL(file));
 
         const formData = new FormData();
-        formData.append("image",file)
+        formData.append("image", file)
+
+        const res = await axios.post(`https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_image_api}`,formData)
+        console.log(res.data)
     };
 
 
