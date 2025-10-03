@@ -39,7 +39,7 @@ const Profile = () => {
 
 
     return (
-        <div className="min-h-screen bg-base-200 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-base-500 flex items-center justify-center p-6">
             <div className="card w-full max-w-md shadow-2xl bg-base-100">
                 <div className="card-body">
                     <h2 className="text-2xl font-bold text-center">Update Profile</h2>
