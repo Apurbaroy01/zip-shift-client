@@ -16,6 +16,7 @@ import Payment from "../Page/DashBoard/Payment/Payment";
 import PaymentHistory from "../Page/DashBoard/Payment/PaymentHistory";
 import TrackParcel from "../Page/DashBoard/TrackParcel/TrackParcel";
 import Profile from "../Page/DashBoard/Profile/Profile";
+import BeARider from "../Page/DashBoard/BeARider/BeARider";
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path:"covarage",
         Component: Covarage,
+      },
+      {
+        path:"beARider",
+        element: <PrivetRoutes><BeARider></BeARider></PrivetRoutes>
       },
       {
         path:"sendParcel",
