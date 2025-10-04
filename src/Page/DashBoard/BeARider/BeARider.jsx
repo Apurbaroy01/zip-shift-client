@@ -3,7 +3,10 @@ import { useForm } from "react-hook-form";
 
 const BeARider = () => {
 
-    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { watch, register, handleSubmit, formState: { errors } } = useForm();
+    const region = watch("region")
+
+
 
     const regionDistricts = {
         Dhaka: ["Gazipur", "Narayanganj", "Tangail"],
@@ -12,6 +15,7 @@ const BeARider = () => {
     };
 
     const onSubmit = async (data) => {
+        
         console.log(data)
 
 
@@ -57,9 +61,7 @@ const BeARider = () => {
                         className="input input-bordered w-full"
                         {...register("phone", { required: true })}
                     />
-                    {errors.phone && (
-                        <span className="text-red-500 text-sm">Phone number is required</span>
-                    )}
+
 
                     {/* National ID */}
                     <input
@@ -68,33 +70,26 @@ const BeARider = () => {
                         className="input input-bordered w-full"
                         {...register("nid", { required: true })}
                     />
-                    {errors.nid && (
-                        <span className="text-red-500 text-sm">NID is required</span>
-                    )}
+
 
                     {/* Region */}
-                    <select
-                        className="select select-bordered w-full"
-                        {...register("region", { required: true })}
-                    >
+                    <select {...register("region")} className="select select-bordered w-full">
                         <option value="">Select Region</option>
-
-                        <option key=" " value=""></option>
-
+                        {Object.keys(regionDistricts).map((region) => (
+                            <option key={region} value={region}>{region}</option>
+                        ))}
                     </select>
-                    {errors.region && <span className="text-red-500 text-sm">Region is required</span>}
+
 
                     {/* District */}
-                    <select
-                        className="select select-bordered w-full"
-                        {...register("district", { required: true })}
-                    >
+                    <select {...register("district")} className="select select-bordered w-full" disabled={!region}>
                         <option value="">Select District</option>
-
-                        <option key="" value=""> </option>
+                        {regionDistricts[region]?.map((district)=>(
+                            <option key={district} value={district}>{district}</option>
+                        ))}
 
                     </select>
-                    {errors.district && <span className="text-red-500 text-sm">District is required</span>}
+
 
                     {/* Bike Brand */}
                     <input
@@ -103,9 +98,7 @@ const BeARider = () => {
                         className="input input-bordered w-full"
                         {...register("bike_brand", { required: true })}
                     />
-                    {errors.bike_brand && (
-                        <span className="text-red-500 text-sm">Bike brand is required</span>
-                    )}
+
 
                     {/* Bike Registration */}
                     <input
@@ -114,9 +107,7 @@ const BeARider = () => {
                         className="input input-bordered w-full"
                         {...register("bike_registration", { required: true })}
                     />
-                    {errors.bike_registration && (
-                        <span className="text-red-500 text-sm">Registration number is required</span>
-                    )}
+
 
                     {/* Additional Info (optional) */}
                     <textarea
