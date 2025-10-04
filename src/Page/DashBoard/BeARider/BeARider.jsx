@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form";
+import useAuth from "../../../Hook/useAuth";
+import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
+import Swal from "sweetalert2";
 
 
 const BeARider = () => {
-
+    const { user } = useAuth();
     const { watch, register, handleSubmit, formState: { errors } } = useForm();
+    const axiosSecure = useAxiosSecoure();
     const region = watch("region")
 
 
@@ -15,11 +19,52 @@ const BeARider = () => {
     };
 
     const onSubmit = async (data) => {
-        
-        console.log(data)
+        const riderData = {
+            ...data,
+            status: "pending",
+            created_at: new Date().toISOString(),
+        };
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, submit"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosSecure.post("/riders", riderData);
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Your application is pending approval.",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Application not submitted.",
+                            icon: "error"
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: error.message || "Something went wrong.",
+                        icon: "error"
+                    });
+                }
+            }
+        });
+    };
 
 
-    }
+
+
+
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-xl shadow">
             <h2 className="text-2xl font-bold mb-2">Become a Rider</h2>
@@ -30,7 +75,7 @@ const BeARider = () => {
                     {/* Name (read-only) */}
                     <input
                         type="text"
-                        value=""
+                        value={user?.displayName || "null"}
                         readOnly
                         className="input input-bordered text-black w-full bg-gray-100"
                     />
@@ -38,7 +83,7 @@ const BeARider = () => {
                     {/* Email (read-only) */}
                     <input
                         type="email"
-                        value=""
+                        value={user?.email || "null"}
                         readOnly
                         className="input input-bordered text-black w-full bg-gray-100"
                     />
@@ -84,7 +129,7 @@ const BeARider = () => {
                     {/* District */}
                     <select {...register("district")} className="select select-bordered w-full" disabled={!region}>
                         <option value="">Select District</option>
-                        {regionDistricts[region]?.map((district)=>(
+                        {regionDistricts[region]?.map((district) => (
                             <option key={district} value={district}>{district}</option>
                         ))}
 
