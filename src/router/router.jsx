@@ -17,6 +17,7 @@ import PaymentHistory from "../Page/DashBoard/Payment/PaymentHistory";
 import TrackParcel from "../Page/DashBoard/TrackParcel/TrackParcel";
 import Profile from "../Page/DashBoard/Profile/Profile";
 import BeARider from "../Page/DashBoard/BeARider/BeARider";
+import PendingRiders from "../Page/DashBoard/PandingRiders/PandingRiders";
 
 
 
@@ -87,6 +88,11 @@ const router = createBrowserRouter([
       {
         path:"profile",
         Component: Profile,
+        
+      },
+      {
+        path:"panding-riders",
+        Component: PendingRiders
         
       },
     ]
