@@ -73,7 +73,7 @@ const DashboardLayout = () => {
                         </NavLink>
                         {/* riders link */}
 
-                        <NavLink to="/dashboard/active-ridres" className={linkClasses}>
+                        <NavLink to="/dashboard/active-riders" className={linkClasses}>
                             <FaUserCheck/> Active Riders
                         </NavLink>
                         <NavLink to="/dashboard/panding-riders" className={linkClasses}>

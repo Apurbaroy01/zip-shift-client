@@ -18,6 +18,7 @@ import TrackParcel from "../Page/DashBoard/TrackParcel/TrackParcel";
 import Profile from "../Page/DashBoard/Profile/Profile";
 import BeARider from "../Page/DashBoard/BeARider/BeARider";
 import PendingRiders from "../Page/DashBoard/PandingRiders/PandingRiders";
+import ActiveRiders from "../Page/DashBoard/ActiveRiders/ActiveRiders";
 
 
 
@@ -93,6 +94,11 @@ const router = createBrowserRouter([
       {
         path:"panding-riders",
         Component: PendingRiders
+        
+      },
+      {
+        path:"active-riders",
+        Component: ActiveRiders
         
       },
     ]
