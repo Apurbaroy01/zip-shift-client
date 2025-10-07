@@ -19,6 +19,7 @@ import Profile from "../Page/DashBoard/Profile/Profile";
 import BeARider from "../Page/DashBoard/BeARider/BeARider";
 import PendingRiders from "../Page/DashBoard/PandingRiders/PandingRiders";
 import ActiveRiders from "../Page/DashBoard/ActiveRiders/ActiveRiders";
+import MakeAdmin from "../Page/DashBoard/MakeAdmin/MakeAdmin";
 
 
 
@@ -99,6 +100,11 @@ const router = createBrowserRouter([
       {
         path:"active-riders",
         Component: ActiveRiders
+        
+      },
+      {
+        path:"makeAdmin",
+        Component: MakeAdmin,
         
       },
     ]

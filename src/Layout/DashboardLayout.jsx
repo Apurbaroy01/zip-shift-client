@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Page/Share/ProfastLogo/ProfastLogo';
-import {FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck} from "react-icons/fa";
+import {FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck, FaUserShield} from "react-icons/fa";
 
 const DashboardLayout = () => {
 
@@ -79,7 +79,14 @@ const DashboardLayout = () => {
                         <NavLink to="/dashboard/panding-riders" className={linkClasses}>
                             <FaUserClock /> panding Riders
                         </NavLink>
+
+                        {/* admin routes */}
+                        <NavLink to="/dashboard/makeAdmin" className={linkClasses}>
+                            <FaUserShield /> Make Admin
+                        </NavLink>
                     </div>
+
+                    
 
 
                 </ul>
