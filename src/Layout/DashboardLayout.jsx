@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Page/Share/ProfastLogo/ProfastLogo';
-import {FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck, FaUserShield} from "react-icons/fa";
+import { FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck, FaUserShield } from "react-icons/fa";
+import useUserRole from '../Hook/useUserRole';
 
 const DashboardLayout = () => {
+
+    const { role, roleLoading } = useUserRole();
+    console.log(role)
 
     const linkClasses = ({ isActive }) =>
         `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-200
@@ -49,7 +53,7 @@ const DashboardLayout = () => {
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
                     <ProfastLogo></ProfastLogo>
-                    
+
 
                     <div className="flex flex-col mt-6 space-y-2">
                         <NavLink to="/" className={linkClasses}>
@@ -73,20 +77,24 @@ const DashboardLayout = () => {
                         </NavLink>
                         {/* riders link */}
 
-                        <NavLink to="/dashboard/active-riders" className={linkClasses}>
-                            <FaUserCheck/> Active Riders
-                        </NavLink>
-                        <NavLink to="/dashboard/panding-riders" className={linkClasses}>
-                            <FaUserClock /> panding Riders
-                        </NavLink>
+                        {!roleLoading && role === "admin" &&
+                            <>
+                                <NavLink to="/dashboard/active-riders" className={linkClasses}>
+                                    <FaUserCheck /> Active Riders
+                                </NavLink>
+                                <NavLink to="/dashboard/panding-riders" className={linkClasses}>
+                                    <FaUserClock /> panding Riders
+                                </NavLink>
 
-                        {/* admin routes */}
-                        <NavLink to="/dashboard/makeAdmin" className={linkClasses}>
-                            <FaUserShield /> Make Admin
-                        </NavLink>
+                                {/* admin routes */}
+                                <NavLink to="/dashboard/makeAdmin" className={linkClasses}>
+                                    <FaUserShield /> Make Admin
+                                </NavLink>
+                            </>
+                        }
                     </div>
 
-                    
+
 
 
                 </ul>
