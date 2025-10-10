@@ -20,6 +20,8 @@ import BeARider from "../Page/DashBoard/BeARider/BeARider";
 import PendingRiders from "../Page/DashBoard/PandingRiders/PandingRiders";
 import ActiveRiders from "../Page/DashBoard/ActiveRiders/ActiveRiders";
 import MakeAdmin from "../Page/DashBoard/MakeAdmin/MakeAdmin";
+import AdminRouts from "../Routes/AdminRouts";
+import ForbiddenPage from "../Page/Forbidden/ForbiddenPage";
 
 
 
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
       {
         path:"covarage",
         Component: Covarage,
+      },
+      {
+        path:"forbidden",
+        Component: ForbiddenPage,
       },
       {
         path:"beARider",
@@ -94,17 +100,19 @@ const router = createBrowserRouter([
       },
       {
         path:"panding-riders",
-        Component: PendingRiders
+        Component: PendingRiders,
+        element: <AdminRouts><PendingRiders></PendingRiders></AdminRouts>
         
       },
       {
         path:"active-riders",
-        Component: ActiveRiders
+        Component: ActiveRiders,
+        element: <AdminRouts><ActiveRiders></ActiveRiders></AdminRouts>
         
       },
       {
         path:"makeAdmin",
-        Component: MakeAdmin,
+        element: <AdminRouts><MakeAdmin></MakeAdmin></AdminRouts>
         
       },
     ]
