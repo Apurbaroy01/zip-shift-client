@@ -22,6 +22,7 @@ import ActiveRiders from "../Page/DashBoard/ActiveRiders/ActiveRiders";
 import MakeAdmin from "../Page/DashBoard/MakeAdmin/MakeAdmin";
 import AdminRouts from "../Routes/AdminRouts";
 import ForbiddenPage from "../Page/Forbidden/ForbiddenPage";
+import AssignRiger from "../Page/DashBoard/AssignRider/AssignRiger";
 
 
 
@@ -96,6 +97,11 @@ const router = createBrowserRouter([
       {
         path:"profile",
         Component: Profile,
+        
+      },
+      {
+        path:"assign-rider",
+        element: <AdminRouts><AssignRiger></AssignRiger></AdminRouts>
         
       },
       {
