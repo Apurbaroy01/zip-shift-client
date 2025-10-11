@@ -51,7 +51,7 @@ const AssignRider = () => {
         try {
             const res = await axiosSecure.get("/riders/available", {
                 params: {
-                    district: parcel.sender_center, // match with rider.district
+                    region: parcel.senderRegion, // match with rider.district
                 },
             });
             setRiders(res.data);
