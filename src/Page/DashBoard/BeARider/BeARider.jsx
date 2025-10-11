@@ -21,7 +21,7 @@ const BeARider = () => {
     const onSubmit = async (data) => {
         const riderData = {
             ...data,
-            name:user.displayName,
+            name:user?.displayName || "null",
             email:user.email,
             status: "pending",
             created_at: new Date().toISOString(),
