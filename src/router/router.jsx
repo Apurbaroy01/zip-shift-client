@@ -23,6 +23,8 @@ import MakeAdmin from "../Page/DashBoard/MakeAdmin/MakeAdmin";
 import AdminRouts from "../Routes/AdminRouts";
 import ForbiddenPage from "../Page/Forbidden/ForbiddenPage";
 import AssignRiger from "../Page/DashBoard/AssignRider/AssignRiger";
+import RiderRoutes from "../Routes/RiderRoutes";
+import PandingDelliveries from "../Page/DashBoard/PandingDelliveries/PandingDelliveries";
 
 
 
@@ -97,6 +99,11 @@ const router = createBrowserRouter([
       {
         path:"profile",
         Component: Profile,
+        
+      },
+      {
+        path:"panding-deliveries",
+        element: <RiderRoutes><PandingDelliveries></PandingDelliveries></RiderRoutes>
         
       },
       {
