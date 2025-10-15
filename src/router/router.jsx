@@ -25,6 +25,7 @@ import ForbiddenPage from "../Page/Forbidden/ForbiddenPage";
 import AssignRiger from "../Page/DashBoard/AssignRider/AssignRiger";
 import RiderRoutes from "../Routes/RiderRoutes";
 import PandingDelliveries from "../Page/DashBoard/PandingDelliveries/PandingDelliveries";
+import CompletedDeliveries from "../Page/DashBoard/CompletedDeliveries/CompletedDeliveries";
 
 
 
@@ -107,19 +108,22 @@ const router = createBrowserRouter([
         
       },
       {
+        path:"completed-deliveries",
+        element: <RiderRoutes><CompletedDeliveries></CompletedDeliveries></RiderRoutes>
+        
+      },
+      {
         path:"assign-rider",
         element: <AdminRouts><AssignRiger></AssignRiger></AdminRouts>
         
       },
       {
         path:"panding-riders",
-        Component: PendingRiders,
         element: <AdminRouts><PendingRiders></PendingRiders></AdminRouts>
         
       },
       {
         path:"active-riders",
-        Component: ActiveRiders,
         element: <AdminRouts><ActiveRiders></ActiveRiders></AdminRouts>
         
       },

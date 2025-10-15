@@ -82,7 +82,7 @@ const DashboardLayout = () => {
                                 <NavLink to="/dashboard/panding-deliveries" className={linkClasses}>
                                     <FaTasks /> pending Deliveries
                                 </NavLink>
-                                <NavLink to="/dashboard/panding-deliveries" className={linkClasses}>
+                                <NavLink to="/dashboard/completed-deliveries" className={linkClasses}>
                                     <FaCheckCircle /> Completed Deliveries
                                 </NavLink>
                             </>
