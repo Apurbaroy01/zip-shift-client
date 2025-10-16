@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecoure from "../../Hook/useAxiosSecoure";
 import Swal from "sweetalert2";
+import useTrackingLogger from "../../Hook/useTrackingLogger";
+import { useNavigate } from "react-router-dom";
+
 
 
 const AddParcel = () => {
@@ -11,6 +14,8 @@ const AddParcel = () => {
   const [price, setPrice] = useState(0);
 
   const axiosSecure = useAxiosSecoure();
+  const { logTracking } = useTrackingLogger();
+  const Navigate= useNavigate();
 
 
   const parcelType = watch("parcelType");
@@ -69,13 +74,15 @@ const AddParcel = () => {
 
   const onSubmit = (data) => {
 
+    const tracking_id = generateTrackingId();
+
     const parcelData = {
       email: user.email,
       price,
       creation_Date: new Date().toISOString(),
       payment_status: "unpaid",
       delevery_status: "not_collected",
-      trackigId: generateTrackingId(),
+      trackigId: tracking_id,
       ...data,
 
     }
@@ -88,27 +95,36 @@ const AddParcel = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, submit it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
 
-        axiosSecure.post("/parcels", parcelData)
+          axiosSecure.post("/parcels", parcelData)
 
-          .then(res => {
-            console.log(res.data)
-            Swal.fire({
-              title: "success",
-              text: "Your parcel has been success.",
-              icon: "success"
-            });
+            .then(async(res) => {
+              console.log(res.data)
+              Swal.fire({
+                title: "success",
+                text: "Your parcel has been success.",
+                icon: "success"
+              });
 
-          })
-          .catch((error) => {
-            console.log(error.message)
-          })
+              await logTracking({
+                tracking_id: parcelData.trackigId,
+                status: "parcel_created",
+                details:`created by ${user?.displayName}`,
+                updated_by: user.email,
+              });
+              Navigate("/dashboard/myParcel")
+
+            })
+            .catch((error) => {
+              console.log(error.message)
+            })
 
 
-      }
-    });
+        }
+      });
 
   };
 

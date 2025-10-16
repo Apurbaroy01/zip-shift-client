@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecoure from '../../../Hook/useAxiosSecoure';
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
+import useTrackingLogger from '../../../Hook/useTrackingLogger';
 
 const PaymentFrom = () => {
     const { user } = useAuth();
@@ -13,7 +14,7 @@ const PaymentFrom = () => {
     const stripe = useStripe();
     const elements = useElements();
     const { parcelId } = useParams();
-    console.log(parcelId);
+    const { logTracking } = useTrackingLogger();
     const navigate = useNavigate();
 
     const { data: parcelInfo = {}, isPending } = useQuery({
@@ -98,13 +99,21 @@ const PaymentFrom = () => {
                 }
 
                 axiosSecure.post('payment', paymentDocument)
-                    .then(res => {
+                    .then(async (res) => {
                         console.log(res.data)
                         Swal.fire({
                             title: "SuccessFully!",
                             text: `paid $ ${amount}`,
                             icon: "success"
                         });
+
+
+                        await logTracking({
+                            tracking_id: parcelInfo.trackigId,
+                            status: "Payment_done",
+                            details: `Paid by ${user?.displayName}`,
+                            updated_by: user.email,
+                        })
                         navigate("/dashboard/myParcel")
                     })
             }

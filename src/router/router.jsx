@@ -26,6 +26,7 @@ import AssignRiger from "../Page/DashBoard/AssignRider/AssignRiger";
 import RiderRoutes from "../Routes/RiderRoutes";
 import PandingDelliveries from "../Page/DashBoard/PandingDelliveries/PandingDelliveries";
 import CompletedDeliveries from "../Page/DashBoard/CompletedDeliveries/CompletedDeliveries";
+import MyEarnings from "../Page/DashBoard/MyEarnings/MyEarnings";
 
 
 
@@ -110,6 +111,11 @@ const router = createBrowserRouter([
       {
         path:"completed-deliveries",
         element: <RiderRoutes><CompletedDeliveries></CompletedDeliveries></RiderRoutes>
+        
+      },
+      {
+        path:"my-earnings",
+        element: <RiderRoutes><MyEarnings></MyEarnings></RiderRoutes>
         
       },
       {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Page/Share/ProfastLogo/ProfastLogo';
-import { FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle } from "react-icons/fa";
+import { FaHome, FaBox, FaMoneyBillWave, FaTruck, FaUserEdit, FaUserClock, FaUserCheck, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet } from "react-icons/fa";
 import useUserRole from '../Hook/useUserRole';
 
 const DashboardLayout = () => {
@@ -84,6 +84,9 @@ const DashboardLayout = () => {
                                 </NavLink>
                                 <NavLink to="/dashboard/completed-deliveries" className={linkClasses}>
                                     <FaCheckCircle /> Completed Deliveries
+                                </NavLink>
+                                <NavLink to="/dashboard/my-earnings" className={linkClasses}>
+                                    <FaWallet /> My Earnings
                                 </NavLink>
                             </>
                         }

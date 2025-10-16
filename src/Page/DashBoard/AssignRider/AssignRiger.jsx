@@ -6,8 +6,6 @@ import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
 import useTrackingLogger from "../../../Hook/useTrackingLogger";
 import useAuth from "../../../Hook/useAuth";
 
-
-
 const AssignRider = () => {
     const axiosSecure = useAxiosSecoure();
     const [selectedParcel, setSelectedParcel] = useState(null);
@@ -17,38 +15,40 @@ const AssignRider = () => {
     const { logTracking } = useTrackingLogger();
     const { user } = useAuth();
 
+    // ✅ Load assignable parcels
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/parcels?payment_status=paid&delevery_status=not_collected"
+            const res = await axiosSecure.get(
+                "/parcels?payment_status=paid&delevery_status=not_collected"
             );
-            // Sort oldest first
             return res.data.sort(
                 (a, b) => new Date(a.creation_date) - new Date(b.creation_date)
             );
         },
     });
 
+    // ✅ Mutation for assigning rider
     const { mutateAsync: assignRider } = useMutation({
-        mutationFn: async ({ parcelId, rider }) => {
-            const res = await axiosSecure.patch(`/parcels/${parcelId}/assign`, {
+        mutationFn: async ({ parcel, rider }) => {
+            const res = await axiosSecure.patch(`/parcels/${parcel._id}/assign`, {
                 riderId: rider._id,
                 riderEmail: rider.email,
                 riderName: rider.name,
             });
-            return res.data;
+            return { parcel, rider, data: res.data };
         },
-        onSuccess:async () => {
+        onSuccess: async ({ parcel, rider }) => {
             queryClient.invalidateQueries(["assignableParcels"]);
             Swal.fire("Success", "Rider assigned successfully!", "success");
 
-            // track rider assigned
+            // ✅ logTracking now works correctly
             await logTracking({
-                tracking_id: selectedParcel?.tracking_id,
+                tracking_id: parcel.tracking_id,
                 status: "rider_assigned",
-                details: `Assigned to ${user?.name}`,
+                details: `Assigned to ${rider.name}`,
                 updated_by: user?.email,
-            })
+            });
 
             document.getElementById("assignModal").close();
         },
@@ -57,7 +57,7 @@ const AssignRider = () => {
         },
     });
 
-    // Step 2: Open modal and load matching riders
+    // ✅ Open modal and load riders
     const openAssignModal = async (parcel) => {
         setSelectedParcel(parcel);
         setLoadingRiders(true);
@@ -65,9 +65,7 @@ const AssignRider = () => {
 
         try {
             const res = await axiosSecure.get("/riders/available", {
-                params: {
-                    region: parcel.senderRegion, // match with rider.district
-                },
+                params: { region: parcel.senderRegion },
             });
             setRiders(res.data);
         } catch (error) {
@@ -105,17 +103,18 @@ const AssignRider = () => {
                         <tbody>
                             {parcels.map((parcel) => (
                                 <tr key={parcel._id}>
-                                    <td>{parcel.trackigId}</td>
+                                    <td>{parcel.tracking_id}</td>
                                     <td>{parcel.parcelName}</td>
                                     <td>{parcel.parcelType}</td>
                                     <td>{parcel.senderDistrict}</td>
                                     <td>{parcel.receiverDistrict}</td>
                                     <td>৳{parcel.price}</td>
-                                    <td>{new Date(parcel.creation_Date).toLocaleDateString()}</td>
+                                    <td>{new Date(parcel.creation_date).toLocaleDateString()}</td>
                                     <td>
                                         <button
                                             onClick={() => openAssignModal(parcel)}
-                                            className="btn btn-sm btn-primary text-black">
+                                            className="btn btn-sm btn-primary text-black"
+                                        >
                                             <FaMotorcycle className="inline-block mr-1" />
                                             Assign Rider
                                         </button>
@@ -124,18 +123,23 @@ const AssignRider = () => {
                             ))}
                         </tbody>
                     </table>
+
                     {/* 🛵 Assign Rider Modal */}
                     <dialog id="assignModal" className="modal">
                         <div className="modal-box max-w-2xl">
                             <h3 className="text-lg font-bold mb-3">
                                 Assign Rider for Parcel:{" "}
-                                <span className="text-primary">{selectedParcel?.parcelName}</span>
+                                <span className="text-primary">
+                                    {selectedParcel?.parcelName}
+                                </span>
                             </h3>
 
                             {loadingRiders ? (
                                 <p>Loading riders...</p>
                             ) : riders.length === 0 ? (
-                                <p className="text-error">No available riders in this district.</p>
+                                <p className="text-error">
+                                    No available riders in this district.
+                                </p>
                             ) : (
                                 <div className="overflow-x-auto max-h-80 overflow-y-auto">
                                     <table className="table table-sm">
@@ -158,12 +162,10 @@ const AssignRider = () => {
                                                     <td>
                                                         <button
                                                             onClick={() =>
-                                                                assignRider({
-                                                                    parcelId: selectedParcel._id,
-                                                                    rider,
-                                                                })
+                                                                assignRider({ parcel: selectedParcel, rider })
                                                             }
-                                                            className="btn btn-xs btn-success">
+                                                            className="btn btn-xs btn-success"
+                                                        >
                                                             Assign
                                                         </button>
                                                     </td>
