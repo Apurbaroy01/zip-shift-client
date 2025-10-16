@@ -93,7 +93,7 @@ const CompletedDeliveries = () => {
                                     <td>{parcel.receiverDistrict}</td>
                                     <td>{parcel.picked_at ? new Date(parcel.picked_at).toLocaleString() : "N/A"}</td>
                                     <td>{parcel.delivered_at ? new Date(parcel.delivered_at).toLocaleString() : "N/A"}</td>
-                                    <td>৳{parcel.cost}</td>
+                                    <td>৳{parcel.price}</td>
                                     <td className="font-semibold text-green-600">৳{calculateEarning(parcel).toFixed(2)}</td>
                                     <td>
                                         {parcel.cashout_status === "cashed_out" ? (

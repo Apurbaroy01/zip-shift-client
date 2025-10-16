@@ -3,6 +3,9 @@ import { FaMotorcycle } from "react-icons/fa";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
+import useTrackingLogger from "../../../Hook/useTrackingLogger";
+import useAuth from "../../../Hook/useAuth";
+
 
 
 const AssignRider = () => {
@@ -11,6 +14,8 @@ const AssignRider = () => {
     const [riders, setRiders] = useState([]);
     const [loadingRiders, setLoadingRiders] = useState(false);
     const queryClient = useQueryClient();
+    const { logTracking } = useTrackingLogger();
+    const { user } = useAuth();
 
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
@@ -33,9 +38,18 @@ const AssignRider = () => {
             });
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess:async () => {
             queryClient.invalidateQueries(["assignableParcels"]);
             Swal.fire("Success", "Rider assigned successfully!", "success");
+
+            // track rider assigned
+            await logTracking({
+                tracking_id: selectedParcel?.tracking_id,
+                status: "rider_assigned",
+                details: `Assigned to ${user?.name}`,
+                updated_by: user?.email,
+            })
+
             document.getElementById("assignModal").close();
         },
         onError: () => {
