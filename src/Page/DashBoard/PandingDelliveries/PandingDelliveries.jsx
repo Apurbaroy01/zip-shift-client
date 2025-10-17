@@ -57,7 +57,7 @@ const PendingDeliveries = () => {
                             trackDetails = `Delivered by ${user.displayName}`
                         }
                         await logTracking({
-                            tracking_id: parcel.tracking_id,
+                            tracking_id: parcel.trackigId,
                             status: newStatus,
                             details: trackDetails,
                             updated_by: user.email,

@@ -44,7 +44,7 @@ const AssignRider = () => {
 
             // ✅ logTracking now works correctly
             await logTracking({
-                tracking_id: parcel.tracking_id,
+                tracking_id: parcel.trackigId,
                 status: "rider_assigned",
                 details: `Assigned to ${rider.name}`,
                 updated_by: user?.email,
@@ -103,7 +103,7 @@ const AssignRider = () => {
                         <tbody>
                             {parcels.map((parcel) => (
                                 <tr key={parcel._id}>
-                                    <td>{parcel.tracking_id}</td>
+                                    <td>{parcel.trackigId}</td>
                                     <td>{parcel.parcelName}</td>
                                     <td>{parcel.parcelType}</td>
                                     <td>{parcel.senderDistrict}</td>
