@@ -55,7 +55,7 @@ const BeARider = () => {
                 } catch (error) {
                     Swal.fire({
                         title: "Error!",
-                        text: error.message || "Something went wrong.",
+                        text: error.response?.data?.message || "Something went wrong.",
                         icon: "error"
                     });
                 }

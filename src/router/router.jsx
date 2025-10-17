@@ -27,6 +27,7 @@ import RiderRoutes from "../Routes/RiderRoutes";
 import PandingDelliveries from "../Page/DashBoard/PandingDelliveries/PandingDelliveries";
 import CompletedDeliveries from "../Page/DashBoard/CompletedDeliveries/CompletedDeliveries";
 import MyEarnings from "../Page/DashBoard/MyEarnings/MyEarnings";
+import DashboardHome from "../Page/DashBoard/DashboardHome/DashboardHome";
 
 
 
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
     path:"/dashboard",
     element:<PrivetRoutes><DashboardLayout></DashboardLayout></PrivetRoutes>,
     children:[
+      {
+        index: true,
+        Component: DashboardHome,
+        
+      },
       {
         path:"myParcel",
         Component: MyParcel,
