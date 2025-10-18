@@ -28,6 +28,7 @@ import PandingDelliveries from "../Page/DashBoard/PandingDelliveries/PandingDell
 import CompletedDeliveries from "../Page/DashBoard/CompletedDeliveries/CompletedDeliveries";
 import MyEarnings from "../Page/DashBoard/MyEarnings/MyEarnings";
 import DashboardHome from "../Page/DashBoard/DashboardHome/DashboardHome";
+import TrackingView from "../Page/DashBoard/TrackParcel/TrackingView";
 
 
 
@@ -102,6 +103,11 @@ const router = createBrowserRouter([
       {
         path:"tracking",
         Component: TrackParcel,
+        
+      },
+      {
+        path:"parcelTracking/:tracking_id",
+        Component: TrackingView,
         
       },
       {
