@@ -50,7 +50,7 @@ const DashboardLayout = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <ul className="menu bg-base-200 text-base-content min-h-full w-60 p-4">
                     {/* Sidebar content here */}
                     <ProfastLogo></ProfastLogo>
 
@@ -60,21 +60,26 @@ const DashboardLayout = () => {
                             <FaHome /> Home
                         </NavLink>
 
-                        <NavLink to="/dashboard/myParcel" className={linkClasses}>
-                            <FaBox /> My Parcels
-                        </NavLink>
 
-                        <NavLink to="/dashboard/paymentHistory" className={linkClasses}>
-                            <FaMoneyBillWave /> Payment History
-                        </NavLink>
 
-                        <NavLink to="/dashboard/tracking" className={linkClasses}>
-                            <FaTruck /> Track a Package
-                        </NavLink>
+                        {
+                            !roleLoading && role === "user" &&
+                            <>
+                                <NavLink to="/dashboard/myParcel" className={linkClasses}>
+                                    <FaBox /> My Parcels
+                                </NavLink>
 
-                        <NavLink to="/dashboard/profile" className={linkClasses}>
-                            <FaUserEdit /> Update Profile
-                        </NavLink>
+                                <NavLink to="/dashboard/paymentHistory" className={linkClasses}>
+                                    <FaMoneyBillWave /> Payment History
+                                </NavLink>
+
+                                <NavLink to="/dashboard/tracking" className={linkClasses}>
+                                    <FaTruck /> Track a Package
+                                </NavLink>
+                            </>
+                        }
+
+
 
                         {/* riders link */}
                         {!roleLoading && role === "rider" &&
@@ -110,6 +115,10 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </>
                         }
+
+                        <NavLink to="/dashboard/profile" className={linkClasses}>
+                            <FaUserEdit /> Update Profile
+                        </NavLink>
                     </div>
 
 

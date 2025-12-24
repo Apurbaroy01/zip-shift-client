@@ -3,10 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { FaSearch, FaUserShield, FaUserTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
+import useAuth from "../../../Hook/useAuth";
 
 const MakeAdmin = () => {
     const axiosSecure = useAxiosSecoure();
     const [emailQuery, setEmailQuery] = useState("");
+    const { user } = useAuth();
+
 
     // 🔹 সার্চ কুয়েরি হ্যান্ডেল করা
     const {
@@ -52,7 +55,7 @@ const MakeAdmin = () => {
 
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Make Admin</h2>
+            <h2 className="text-2xl text-center font-semibold mb-4">Make Admin</h2>
 
             {/* 🔎 সার্চ ইনপুট */}
             <div className="flex gap-2 mb-6 items-center">
@@ -74,23 +77,28 @@ const MakeAdmin = () => {
 
             {users.length > 0 && (
                 <div className="overflow-x-auto">
-                    <table className="table w-full table-zebra">
-                        <thead>
+                    <table className="table w-full">
+                        <thead className="bg-gray-50 text-gray-600 text-sm">
                             <tr>
                                 <th>Email</th>
-                                <th>Created At</th>
+                                <th>Created</th>
                                 <th>Role</th>
-                                <th>Action</th>
+                                <th className="text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <tbody className="text-sm">
                             {users.map((u) => (
-                                <tr key={u._id}>
-                                    <td>{u.email}</td>
-                                    <td>{new Date(u.created_at).toLocaleDateString()}</td>
+                                <tr key={u._id} className="hover">
+                                    <td className="font-medium">{u.email}</td>
+
+                                    <td className="text-gray-500">
+                                        {new Date(u.created_at).toLocaleDateString()}
+                                    </td>
+
                                     <td>
                                         <span
-                                            className={`badge ${u.role === "admin"
+                                            className={`badge badge-sm ${u.role === "admin"
                                                     ? "badge-success"
                                                     : "badge-ghost"
                                                 }`}
@@ -98,18 +106,26 @@ const MakeAdmin = () => {
                                             {u.role || "user"}
                                         </span>
                                     </td>
-                                    <td>
+
+                                    <td className="text-right">
                                         <button
-                                            onClick={() => handleRoleChange(u._id, u.role || "user")}
-                                            className={`btn btn-sm text-black ${u.role === "admin"
-                                                    ? "btn-error"
+                                            onClick={() =>
+                                                handleRoleChange(
+                                                    u._id,
+                                                    u.role || "user"
+                                                )
+                                            }
+                                            className={`btn btn-xs ${u.role === "admin"
+                                                    ? "btn-outline btn-error"
                                                     : "btn-primary"
                                                 }`}
+
+                                                disabled={u.email === user?.email}
                                         >
                                             {u.role === "admin" ? (
                                                 <>
                                                     <FaUserTimes className="mr-1" />
-                                                    Remove Admin
+                                                    Remove
                                                 </>
                                             ) : (
                                                 <>

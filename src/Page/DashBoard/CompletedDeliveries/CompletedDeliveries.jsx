@@ -87,12 +87,34 @@ const CompletedDeliveries = () => {
                         <tbody>
                             {parcels.map((parcel) => (
                                 <tr key={parcel._id}>
-                                    <td>{parcel.trackigId}</td>
+                                    <td className="text-xs text-nowrap">{parcel.trackigId}</td>
                                     <td>{parcel.parcelType}</td>
                                     <td>{parcel.senderDistrict}</td>
                                     <td>{parcel.receiverDistrict}</td>
-                                    <td>{parcel.picked_at ? new Date(parcel.picked_at).toLocaleString() : "N/A"}</td>
-                                    <td>{parcel.delivered_at ? new Date(parcel.delivered_at).toLocaleString() : "N/A"}</td>
+                                    <td className="text-xs">
+                                        {parcel.picked_at
+                                            ? new Date(parcel.picked_at).toLocaleString("en-GB", {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true,
+                                            })
+                                            : "N/A"}
+                                    </td>
+                                    <td className="text-xs">
+                                        {parcel.picked_at
+                                            ? new Date(parcel.delivered_at).toLocaleString("en-GB", {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true,
+                                            })
+                                            : "N/A"}
+                                    </td>
                                     <td>৳{parcel.price}</td>
                                     <td className="font-semibold text-green-600">৳{calculateEarning(parcel).toFixed(2)}</td>
                                     <td>

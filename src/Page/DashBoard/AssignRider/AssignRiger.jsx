@@ -109,11 +109,24 @@ const AssignRider = () => {
                                     <td>{parcel.senderDistrict}</td>
                                     <td>{parcel.receiverDistrict}</td>
                                     <td>৳{parcel.price}</td>
-                                    <td>{new Date(parcel.creation_date).toLocaleDateString()}</td>
+                                    {/* <td>{new Date(parcel.creation_Date).toLocaleDateString()}</td> */}
+                                    <td className="text-xs">
+                                        {parcel.creation_Date
+                                            ? new Date(parcel.creation_Date).toLocaleString("en-GB", {
+                                                day: "2-digit",
+                                                month: "short",
+                                                
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true,
+                                            })
+                                            : "N/A"}
+                                    </td>
+
                                     <td>
                                         <button
                                             onClick={() => openAssignModal(parcel)}
-                                            className="btn btn-sm btn-primary text-black"
+                                            className="btn btn-sm btn-primary "
                                         >
                                             <FaMotorcycle className="inline-block mr-1" />
                                             Assign Rider
