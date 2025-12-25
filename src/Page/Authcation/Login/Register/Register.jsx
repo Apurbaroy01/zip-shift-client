@@ -32,11 +32,11 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 px-4">
-            <div className="w-full max-w-xl bg-white rounded-2xl shadow-2xl p-8">
+        <div className="min-h-screen w-full flex px-4">
+            <div className="w-full max-w-xl bg-gray-100 rounded-2xl shadow-2xl p-8 mx-auto">
 
                 {/* Header */}
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+                <h2 className="text-3xl font-bold  text-gray-800 mb-8">
                     Create Account
                 </h2>
 
@@ -45,7 +45,7 @@ const Register = () => {
 
                     {/* Name */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1">
+                        <label className="block text-sm text-start font-semibold text-gray-600 mb-1">
                             Full Name
                         </label>
                         <input
@@ -60,7 +60,7 @@ const Register = () => {
 
                     {/* Email */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1">
+                        <label className="block text-sm text-start font-semibold text-gray-600 mb-1">
                             Email Address
                         </label>
                         <input
@@ -75,7 +75,7 @@ const Register = () => {
 
                     {/* Password */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1">
+                        <label className="block text-sm text-start font-semibold text-gray-600 mb-1">
                             Password
                         </label>
                         <input

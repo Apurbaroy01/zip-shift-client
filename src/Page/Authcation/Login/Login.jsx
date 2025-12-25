@@ -43,8 +43,8 @@ const Login = () => {
         <div className="min-h-screen flex items-center justify-center ">
             <div className="w-full max-w-md  p-8">
                 {/* Header */}
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-                    Welcome Back 👋
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+                    Login Now 👋
                 </h2>
 
 
