@@ -4,8 +4,11 @@ import ProfastLogo from '../ProfastLogo/ProfastLogo';
 import useAuth from '../../../Hook/useAuth';
 import { LuLogOut } from "react-icons/lu";
 import icon from "../../../assets/icon.png"
+
 const Navbar = () => {
     const { user, logOut } = useAuth();
+
+
 
     const handleLogOut = () => {
 
@@ -23,14 +26,15 @@ const Navbar = () => {
     const Navitem = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/covarage">Covarage</NavLink></li>
-        <li><NavLink to="/sendParcel">Add Parcel</NavLink></li>
+
 
         {
             user && <>
                 <li><NavLink to="/dashboard">DashBoard</NavLink></li>
             </>
         }
-        <li><NavLink to="/beARider">Be a Rider</NavLink></li>
+        
+
         <li><NavLink to="/about">About</NavLink></li>
 
     </>

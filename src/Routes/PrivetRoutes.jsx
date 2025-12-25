@@ -1,5 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
+import Lottie from "lottie-react";
+import animation from "../assets/Loading (1).json";
 
 
 
@@ -10,8 +12,12 @@ const PrivetRoutes = ({ children }) => {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <p className="text-xl font-semibold">Loading....</p>
+            <div className="flex items-center justify-center min-h-screen w-full">
+                <Lottie
+                    animationData={animation}
+                    loop
+                    className="w-40 h-40"
+                />
             </div>
         );
     }

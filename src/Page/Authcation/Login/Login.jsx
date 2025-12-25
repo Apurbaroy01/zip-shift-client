@@ -10,7 +10,7 @@ const Login = () => {
 
     const location = useLocation();
     console.log(location)
-    const from = location.state?.from || "/"
+    const from = location.state?.from || "/dashboard"
 
     const onSubmit = (data) => {
         console.log(data);
@@ -30,7 +30,7 @@ const Login = () => {
         signWithGoogle()
             .then((result) => {
                 console.log(result.user)
-                navigate('/')
+                navigate('/dashboard')
             })
             .catch((error) => {
                 console.log(error)
