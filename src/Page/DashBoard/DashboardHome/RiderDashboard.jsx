@@ -6,9 +6,13 @@ import {
     FaClock,
 } from "react-icons/fa";
 import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
+import useAuth from "../../../Hook/useAuth";
 
 export default function RiderDashboard() {
     const axiosSecure = useAxiosSecoure();
+    const { user } = useAuth();
+
+
 
     // 🔹 Real data (existing)
     const { data: deliveryStatus = [] } = useQuery({
@@ -19,20 +23,29 @@ export default function RiderDashboard() {
         },
     });
 
+    const { data: parcelCollection = {} } = useQuery({
+        queryKey: ["parcelCollection"],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/parcel/status-count?email=${user.email}`);
+            return res.data;
+        }
+    });
+    console.log(parcelCollection)
+
     // 🔹 Fake data for other cards
     const fakeStats = [
-        
+
         {
             id: 3,
             title: "Delivered Parcels",
-            value: deliveryStatus.delivered,
+            value: parcelCollection?.delivered,
             icon: <FaCheckCircle />,
             color: "from-green-100 to-green-50 text-green-600",
         },
         {
             id: 4,
             title: "Pending Parcels",
-            value: 41,
+            value: parcelCollection?.rider_assigned,
             icon: <FaClock />,
             color: "from-red-100 to-red-50 text-red-600",
         },

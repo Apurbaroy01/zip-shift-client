@@ -7,7 +7,10 @@ import useAxiosSecoure from "../../../Hook/useAxiosSecoure";
 
 const ActiveRiders = () => {
     const axiosSecure = useAxiosSecoure();
+
     
+
+
 
     // 🟡 Load Active Riders with React Query
     const { data: riders = [], isLoading, refetch, error } = useQuery({
@@ -15,12 +18,12 @@ const ActiveRiders = () => {
         queryFn: async () => {
             const res = await axiosSecure.get("/riders/active");
             return res.data;
-            
+
         },
-        
+
     });
 
-    console.log(riders)
+    // console.log(riders)
     // 🔴 Handle Deactivation
     const handleDeactivate = async (id) => {
         const confirm = await Swal.fire({
@@ -44,7 +47,7 @@ const ActiveRiders = () => {
     };
 
     // 🔎 Filtered List
-    
+
 
     return (
         <div className="p-6">
@@ -58,7 +61,7 @@ const ActiveRiders = () => {
                     placeholder="Search by name"
                     className="input input-bordered w-full max-w-md"
                     value=""
-                    
+
                 />
             </div>
 
